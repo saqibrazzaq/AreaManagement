@@ -50,7 +50,7 @@ namespace api.Services
         private State FindStateIfExists(int stateId, bool trackChanges)
         {
             var entity = _repositoryManager.StateRepository.FindByCondition(
-                x => x.Id == stateId,
+                x => x.StateId == stateId,
                 trackChanges)
                 .FirstOrDefault();
             if (entity == null) throw new NotFoundException("No state found with id " + stateId);

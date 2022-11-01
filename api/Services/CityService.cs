@@ -50,7 +50,7 @@ namespace api.Services
         private City FindCityIfExists(int cityId, bool trackChanges)
         {
             var entity = _repositoryManager.CityRepository.FindByCondition(
-                x => x.Id == cityId,
+                x => x.CityId == cityId,
                 trackChanges)
                 .FirstOrDefault();
             if (entity == null) throw new NotFoundException("No city found with id " + cityId);

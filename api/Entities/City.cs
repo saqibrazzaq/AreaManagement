@@ -9,7 +9,7 @@ namespace api.Entities
     public class City
     {
         [Key]
-        public int Id { get; set; }
+        public int CityId { get; set; }
         [Required, MaxLength(255)]
         public string? Name { get; set; }
 

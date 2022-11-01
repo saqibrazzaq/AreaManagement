@@ -3,15 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos
 {
-    public class StateRes
+    public class AreaRes
     {
-        public int StateId { get; set; }
+        public int AreaId { get; set; }
         public string? Name { get; set; }
         public string? Code { get; set; }
-        public int CountryId { get; set; }
+
+        // Foreign keys
+        public int CityId { get; set; }
     }
 
-    public class StateReqEdit
+    public class AreaReqEdit
     {
         [Required, MaxLength(255)]
         public string? Name { get; set; }
@@ -19,11 +21,11 @@ namespace api.Dtos
         public string? Code { get; set; }
 
         // Foreign keys
-        public int CountryId { get; set; }
+        public int CityId { get; set; }
     }
 
-    public class StateReqSearch : PagedRequestDto
+    public class AreaReqSearch : PagedRequestDto
     {
-        public int CountryId { get; set; }
+        public int CityId { get; set; }
     }
 }

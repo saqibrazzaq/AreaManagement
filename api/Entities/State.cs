@@ -10,7 +10,7 @@ namespace api.Entities
     public class State
     {
         [Key]
-        public int Id { get; set; }
+        public int StateId { get; set; }
         [Required, MaxLength(255)]
         public string? Name { get; set; }
         [Required, MaxLength(50)]

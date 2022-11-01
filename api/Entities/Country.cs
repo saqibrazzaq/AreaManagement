@@ -10,7 +10,7 @@ namespace api.Entities
     public class Country
     {
         [Key]
-        public int Id { get; set; }
+        public int CountryId { get; set; }
         [Required, MaxLength(255)]
         public string? Name { get; set; }
         [Required, MaxLength(3)]

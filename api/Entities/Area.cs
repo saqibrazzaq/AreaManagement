@@ -10,14 +10,15 @@ namespace api.Entities
     public class Area
     {
         [Key]
-        public int Id { get; set; }
+        public int AreaId { get; set; }
         [Required, MaxLength(255)]
         public string? Name { get; set; }
+        [Required, MaxLength(50)] 
         public string? Code { get; set; }
 
         // Foreign keys
-        public int CityCode { get; set; }
-        [ForeignKey("CityCode")]
+        public int CityId { get; set; }
+        [ForeignKey("CityId")]
         public City? City { get; set; }
     }
 }

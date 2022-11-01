@@ -24,10 +24,10 @@ namespace api.Controllers
             return Ok(res);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult FindById(int id)
+        [HttpGet("{stateId}")]
+        public IActionResult FindById(int stateId)
         {
-            var res = _stateService.FindById(id);
+            var res = _stateService.FindById(stateId);
             return Ok(res);
         }
 
@@ -39,18 +39,18 @@ namespace api.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{stateId}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public IActionResult Update(int id, StateReqEdit dto)
+        public IActionResult Update(int stateId, StateReqEdit dto)
         {
-            var res = _stateService.Update(id, dto);
+            var res = _stateService.Update(stateId, dto);
             return Ok(res);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{stateId}")]
+        public IActionResult Delete(int stateId)
         {
-            _stateService.Delete(id);
+            _stateService.Delete(stateId);
             return NoContent();
         }
     }

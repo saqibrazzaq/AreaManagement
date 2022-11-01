@@ -41,7 +41,7 @@ namespace api.Services
         private Country FindCountryIfExists(int id, bool trackChanges)
         {
             var entity = _repositoryManager.CountryRepository.FindByCondition(
-                x => x.Id == id,
+                x => x.CountryId == id,
                 trackChanges)
                 .FirstOrDefault();
             if (entity == null) throw new NotFoundException("No country found with id " + id);

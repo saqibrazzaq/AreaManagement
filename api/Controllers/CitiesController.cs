@@ -24,10 +24,10 @@ namespace api.Controllers
             return Ok(res);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult FindById(int id)
+        [HttpGet("{cityId}")]
+        public IActionResult FindById(int cityId)
         {
-            var res = _cityService.FindById(id);
+            var res = _cityService.FindById(cityId);
             return Ok(res);
         }
 
@@ -39,18 +39,18 @@ namespace api.Controllers
             return Ok(res);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{cityId}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public IActionResult Update(int id, CityReqEdit dto)
+        public IActionResult Update(int cityId, CityReqEdit dto)
         {
-            var res = _cityService.Update(id, dto);
+            var res = _cityService.Update(cityId, dto);
             return Ok(res);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{cityId}")]
+        public IActionResult Delete(int cityId)
         {
-            _cityService.Delete(id);
+            _cityService.Delete(cityId);
             return NoContent();
         }
     }

@@ -5,36 +5,37 @@ using System.Linq.Dynamic.Core;
 
 namespace api.Repository
 {
-    public static class CityRepositoryExtensions
+    public static class AreaRepositoryExtensions
     {
-        public static IQueryable<City> Search(this IQueryable<City> items,
-            CityReqSearch searchParams)
+        public static IQueryable<Area> Search(this IQueryable<Area> items,
+            AreaReqSearch searchParams)
         {
             var itemsToReturn = items
                 //.Include(x => x.Variants)
                 .AsQueryable();
 
             itemsToReturn = itemsToReturn.Where(
-                x => x.StateId == searchParams.StateId);
+                x => x.CityId == searchParams.CityId);
 
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {
                 string searchText = searchParams.SearchText.ToLower();
                 itemsToReturn = itemsToReturn.Where(
-                    x => (x.Name ?? "").Contains(searchParams.SearchText)
+                    x => (x.Name ?? "").Contains(searchParams.SearchText) ||
+                    (x.Code ?? "").Contains(searchParams.SearchText)
                 );
             }
 
             return itemsToReturn;
         }
 
-        public static IQueryable<City> Sort(this IQueryable<City> items,
+        public static IQueryable<Area> Sort(this IQueryable<Area> items,
             string? orderBy)
         {
             if (string.IsNullOrWhiteSpace(orderBy))
                 return items.OrderBy(e => e.Name);
 
-            var orderQuery = OrderQueryBuilder.CreateOrderQuery<City>(orderBy);
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Area>(orderBy);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
                 return items.OrderBy(e => e.Name);

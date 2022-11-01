@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -10,9 +11,10 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221101071159_area-code-required")]
+    partial class areacoderequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,13 +25,13 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Area", b =>
                 {
-                    b.Property<int>("AreaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AreaId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CityId")
+                    b.Property<int>("CityCode")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -42,9 +44,9 @@ namespace api.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("AreaId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("CityCode");
 
                     b.HasIndex("Code")
                         .IsUnique();
@@ -57,11 +59,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.City", b =>
                 {
-                    b.Property<int>("CityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -71,7 +73,7 @@ namespace api.Migrations
                     b.Property<int>("StateId")
                         .HasColumnType("int");
 
-                    b.HasKey("CityId");
+                    b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -83,11 +85,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.Country", b =>
                 {
-                    b.Property<int>("CountryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -99,7 +101,7 @@ namespace api.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("CountryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("Code")
                         .IsUnique();
@@ -112,11 +114,11 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Entities.State", b =>
                 {
-                    b.Property<int>("StateId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StateId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -131,7 +133,7 @@ namespace api.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("StateId");
+                    b.HasKey("Id");
 
                     b.HasIndex("Code")
                         .IsUnique();
@@ -148,7 +150,7 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Entities.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("CityCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
