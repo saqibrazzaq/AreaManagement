@@ -1,5 +1,8 @@
 ﻿using api.ActionFilters;
 using api.Data;
+using api.Repository;
+using api.Services;
+using logger;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +31,11 @@ namespace api.Extensions
             });
         }
 
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+
         public static void ConfigureAutoMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingProfile));
@@ -42,7 +50,7 @@ namespace api.Extensions
 
         public static void ConfigureRepositoryManager(this IServiceCollection services)
         {
-            //services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
         }
 
         public static void ConfigureValidationFilter(this IServiceCollection services)
@@ -57,7 +65,8 @@ namespace api.Extensions
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IStateService, StateService>();
         }
 
         public static void MigrateDatabase(this IServiceCollection services)

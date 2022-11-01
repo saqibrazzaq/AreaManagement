@@ -1,4 +1,5 @@
 ﻿using api.Exceptions;
+using logger;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 
@@ -7,7 +8,7 @@ namespace api.Extensions
     public static class ExceptionMiddlewareExtensions
     {
         public static void ConfigureExceptionHandler(this WebApplication app
-            //,ILoggerManager logger
+            ,ILoggerManager logger
             )
         {
             app.UseExceptionHandler(appError =>
@@ -27,7 +28,7 @@ namespace api.Extensions
                             //UnAuthorizedUserException => StatusCodes.Status401Unauthorized,
                             _ => StatusCodes.Status500InternalServerError
                         };
-                        //logger.LogError($"Error: {contextFeature.Error}");
+                        logger.LogError($"Error: {contextFeature.Error}");
 
                         await context.Response.WriteAsync(new ErrorDetails()
                         {

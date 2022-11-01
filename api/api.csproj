@@ -21,10 +21,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.21" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\logger\logger.csproj" />
   </ItemGroup>
 
 </Project>

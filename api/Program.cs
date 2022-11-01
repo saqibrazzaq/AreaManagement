@@ -1,10 +1,15 @@
 using api.Extensions;
 using api.Utility;
+using logger;
+using NLog;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+LogManager.LoadConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "nlog.config"));
+
+builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureCors();
 builder.Services.ConfigureAutoMapper();
@@ -30,6 +35,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Configure logger
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureExceptionHandler(logger);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

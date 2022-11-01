@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Entities
 {
     [Table("State")]
+    [Index(nameof(Name), IsUnique = true)]
+    [Index(nameof(Code), IsUnique = true)]
     public class State
     {
         [Key]
