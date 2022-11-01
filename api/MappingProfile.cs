@@ -15,6 +15,10 @@ namespace api
             // State
             CreateMap<State, StateRes>();
             CreateMap<StateReqEdit, State>();
+
+            // City
+            CreateMap<City, CityRes>();
+            CreateMap<CityReqEdit, City>();
         }
     }
 }
