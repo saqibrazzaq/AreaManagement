@@ -26,7 +26,8 @@ import { CountryApi } from "../api/countryApi";
 const StateEdit = () => {
   const [selectedCountry, setSelectedCountry] = useState<CountryRes>();
   const params = useParams();
-  const stateId = params.stateId;
+  const countryId = Number.parseInt(params.countryId || "0");
+  const stateId = Number.parseInt(params.stateId || "0");
   const updateText = stateId ? "Update State" : "Add State";
   const [stateDto, setStateDto] = useState<StateReqEdit>(new StateReqEdit());
   const toast = useToast();
@@ -37,15 +38,18 @@ const StateEdit = () => {
   }, [stateId]);
 
   useEffect(() => {
-    loadCountry();
+    loadCountry(stateDto.countryId);
   }, [stateDto.countryId]);
 
-  const loadCountry = () => {
-    if (stateDto.countryId) {
-      CountryApi.get(stateDto.countryId).then((res) => {
-        setSelectedCountry(res);
-      });
-    }
+  useEffect(() => {
+    loadCountry(countryId);
+  }, [countryId]);
+
+  const loadCountry = (cid?:number) => {
+    // console.log("load country " + cid)
+    CountryApi.get(cid).then((res) => {
+      setSelectedCountry(res);
+    });
   };
 
   const loadState = () => {
@@ -81,7 +85,7 @@ const StateEdit = () => {
         status: "success",
         position: "top-right",
       });
-      navigate("/states");
+      navigate("/states/" + countryId);
     });
   };
 
@@ -94,7 +98,7 @@ const StateEdit = () => {
         position: "top-right",
       });
       // navigate("/states/edit/" + res.stateId)
-      navigate("/states");
+      navigate("/states/" + countryId);
     });
   };
 
@@ -152,7 +156,7 @@ const StateEdit = () => {
       </Box>
       <Spacer />
       <Box>
-        <Link ml={2} as={RouteLink} to={"/states"}>
+        <Link ml={2} as={RouteLink} to={"/states/" + countryId}>
           <Button colorScheme={"gray"}>Back</Button>
         </Link>
       </Box>

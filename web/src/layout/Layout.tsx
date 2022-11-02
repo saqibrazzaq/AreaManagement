@@ -15,7 +15,7 @@ import Header from "./Header";
 const Layout = () => {
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center">
+      <Box>
         <Grid minH="100vh" p={3}>
           <VStack spacing={1}>
             <Header />

@@ -3,6 +3,7 @@ import { defineCancelApiObject } from "./axiosUtils"
 
 export const CountryApi = {
   get: async function (countryId, cancel = false) {
+    if (!countryId) return {};
     const response = await api.request({
       url: `/countries/` + countryId,
       method: "GET",

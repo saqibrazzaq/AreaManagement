@@ -32,8 +32,10 @@ export const App = () => (
         </Route>
         <Route path="states">
           <Route index element={<States />} />
+          <Route path=":countryId" element={<States />} />
           <Route path="edit" element={<StateEdit />} />
-          <Route path="edit/:stateId" element={<StateEdit />} />
+          <Route path="edit/:countryId" element={<StateEdit />} />
+          <Route path="edit/:countryId/:stateId" element={<StateEdit />} />
           <Route path="delete/:stateId" element={<StateDelete />} />
         </Route>
         <Route path="countries">

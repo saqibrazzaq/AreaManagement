@@ -19,7 +19,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Link as RouteLink, useParams } from "react-router-dom";
+import {
+  Link as RouteLink,
+  Navigate,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import UpdateIconButton from "../components/UpdateIconButton";
 import DeleteIconButton from "../components/DeleteIconButton";
 import PagedRes from "../dtos/PagedResponse";
@@ -27,17 +32,31 @@ import CountrySearchBox from "../searchboxes/CountrySearchBox";
 import { StateReqSearch, StateRes } from "../dtos/State";
 import { CountryRes } from "../dtos/Country";
 import { StateApi } from "../api/stateApi";
+import { CountryApi } from "../api/countryApi";
 
 const States = () => {
+  const params = useParams();
+  const countryId = Number.parseInt(params.countryId || "0");
   const [pagedRes, setPagedRes] = useState<PagedRes<StateRes>>();
-  const [selectedCountry, setSelectedCountry] = useState<CountryRes>();
-  const [countryId, setCountryId] = useState<number>(0);
+  const [selectedCountry, setSelectedCountry] = useState<CountryRes>({});
   const [searchText, setSearchText] = useState<string>("");
+  const navigate = useNavigate();
 
+  // console.log("selected country: " + (selectedCountry?.countryId || "0"));
   useEffect(() => {
     // console.log("URL: " + process.env.REACT_APP_API_BASE_URL)
-    searchStates(new StateReqSearch({}));
-  }, []);
+    searchStates(new StateReqSearch({}, countryId));
+  }, [countryId]);
+
+  useEffect(() => {
+    loadCountry();
+  }, [countryId]);
+
+  const loadCountry = () => {
+    CountryApi.get(countryId).then((res) => {
+      setSelectedCountry(res);
+    });
+  };
 
   const searchStates = (searchParams: StateReqSearch) => {
     StateApi.search(searchParams).then((res) => {
@@ -53,7 +72,7 @@ const States = () => {
         {
           pageNumber: previousPageNumber,
         },
-        countryId
+        selectedCountry?.countryId
       );
 
       searchStates(searchParams);
@@ -65,7 +84,7 @@ const States = () => {
       let nextPageNumber = (pagedRes?.metaData?.currentPage || 0) + 1;
       let searchParams = new StateReqSearch(
         { pageNumber: nextPageNumber },
-        countryId
+        selectedCountry?.countryId
       );
 
       searchStates(searchParams);
@@ -79,7 +98,11 @@ const States = () => {
       </Box>
       <Spacer />
       <Box>
-        <Link ml={2} as={RouteLink} to={"/states/edit"}>
+        <Link
+          ml={2}
+          as={RouteLink}
+          to={"/states/edit/" + (selectedCountry?.countryId || "")}
+        >
           <Button colorScheme={"blue"}>Add State</Button>
         </Link>
       </Box>
@@ -102,7 +125,16 @@ const States = () => {
               <Td>{item.code}</Td>
               <Td>{item.name}</Td>
               <Td>
-                <Link mr={2} as={RouteLink} to={"/states/edit/" + item.stateId}>
+                <Link
+                  mr={2}
+                  as={RouteLink}
+                  to={
+                    "/states/edit/" +
+                    selectedCountry?.countryId +
+                    "/" +
+                    item.stateId
+                  }
+                >
                   <UpdateIconButton />
                 </Link>
                 <Link as={RouteLink} to={"/states/delete/" + item.stateId}>
@@ -146,12 +178,7 @@ const States = () => {
         <CountrySearchBox
           selectedCountry={selectedCountry}
           handleChange={(newValue?: CountryRes) => {
-            setSelectedCountry(newValue);
-            let cid = newValue?.countryId || 0;
-            setCountryId(cid);
-            searchStates(
-              new StateReqSearch({ searchText: searchText }, cid)
-            );
+            navigate("/states/" + newValue?.countryId);
           }}
         />
       </Box>
@@ -164,7 +191,10 @@ const States = () => {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               searchStates(
-                new StateReqSearch({ searchText: searchText }, countryId)
+                new StateReqSearch(
+                  { searchText: searchText },
+                  selectedCountry?.countryId
+                )
               );
             }
           }}
@@ -175,7 +205,10 @@ const States = () => {
           colorScheme={"blue"}
           onClick={() => {
             searchStates(
-              new StateReqSearch({ searchText: searchText }, countryId)
+              new StateReqSearch(
+                { searchText: searchText },
+                selectedCountry?.countryId
+              )
             );
           }}
         >
