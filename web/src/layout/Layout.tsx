@@ -19,7 +19,7 @@ const Layout = () => {
         <Grid minH="100vh" p={3}>
           <VStack spacing={1}>
             <Header />
-              <Outlet />
+            <Outlet />
             <Footer />
           </VStack>
         </Grid>
