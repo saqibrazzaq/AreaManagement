@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CountryReqSearch, CountryRes } from "../dtos/Country";
+import { CountryReqSearch, CountryResWithStatesCount } from "../dtos/Country";
 import { CountryApi } from "../api/countryApi";
 import {
   Box,
@@ -25,10 +25,9 @@ import { Link as RouteLink, useParams } from "react-router-dom";
 import UpdateIconButton from "../components/UpdateIconButton";
 import DeleteIconButton from "../components/DeleteIconButton";
 import PagedRes from "../dtos/PagedResponse";
-import CountrySearchBox from "../searchboxes/CountrySearchBox";
 
 const Countries = () => {
-  const [pagedRes, setPagedRes] = useState<PagedRes<CountryRes>>();
+  const [pagedRes, setPagedRes] = useState<PagedRes<CountryResWithStatesCount>>();
   const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
@@ -37,7 +36,7 @@ const Countries = () => {
   }, []);
 
   const searchCountries = (searchParams: CountryReqSearch) => {
-    CountryApi.search(searchParams).then((res) => {
+    CountryApi.searchWithStatesCount(searchParams).then((res) => {
       setPagedRes(res);
       // console.log(res);
     });
@@ -84,6 +83,7 @@ const Countries = () => {
           <Tr>
             <Th>Code</Th>
             <Th>Name</Th>
+            <Th>States</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -92,6 +92,7 @@ const Countries = () => {
             <Tr key={item.countryId}>
               <Td>{item.code}</Td>
               <Td>{item.name}</Td>
+              <Td>{item.statesCount}</Td>
               <Td>
                 <Link
                   mr={2}

@@ -5,7 +5,7 @@ namespace api.Services
 {
     public interface IStateService
     {
-        ApiOkPagedResponse<IEnumerable<StateRes>, MetaData>
+        ApiOkPagedResponse<IEnumerable<StateResWithCitiesCount>, MetaData>
             SearchStates(StateReqSearch dto);
         int Count();
         int Count(int countryId);

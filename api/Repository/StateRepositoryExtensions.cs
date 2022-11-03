@@ -1,5 +1,4 @@
 ﻿using api.Dtos;
-using api.Entities;
 using api.Utility.Paging;
 using System.Linq.Dynamic.Core;
 
@@ -7,7 +6,7 @@ namespace api.Repository
 {
     public static class StateRepositoryExtensions
     {
-        public static IQueryable<State> Search(this IQueryable<State> items,
+        public static IQueryable<StateResWithCitiesCount> Search(this IQueryable<StateResWithCitiesCount> items,
             StateReqSearch searchParams)
         {
             var itemsToReturn = items
@@ -29,13 +28,13 @@ namespace api.Repository
             return itemsToReturn;
         }
 
-        public static IQueryable<State> Sort(this IQueryable<State> items,
+        public static IQueryable<StateResWithCitiesCount> Sort(this IQueryable<StateResWithCitiesCount> items,
             string? orderBy)
         {
             if (string.IsNullOrWhiteSpace(orderBy))
                 return items.OrderBy(e => e.Name);
 
-            var orderQuery = OrderQueryBuilder.CreateOrderQuery<State>(orderBy);
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<StateResWithCitiesCount>(orderBy);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
                 return items.OrderBy(e => e.Name);

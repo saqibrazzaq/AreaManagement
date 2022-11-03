@@ -4,6 +4,7 @@ using api.Exceptions;
 using api.Repository;
 using api.Utility.Paging;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services
 {
@@ -49,18 +50,38 @@ namespace api.Services
             return entity;
         }
 
-        public CountryRes FindById(int id)
+        public CountryRes Get(int countryId)
         {
-            var entity = FindCountryIfExists(id, false);
+            var entity = FindCountryIfExists(countryId, false);
             return _mapper.Map<CountryRes>(entity);
         }
 
-        public ApiOkPagedResponse<IEnumerable<CountryRes>, MetaData> SearchCountries(CountryReqSearch dto)
+        public CountryResWithStatesCount GetCountryWithStatesCount(int countryId)
+        {
+            var entity = _repositoryManager.CountryRepository
+                .GetCountryWithStatesCount(countryId);
+            if (entity == null) throw new NotFoundException("No country found with id " + countryId);
+
+            return entity;
+        }
+
+        public ApiOkPagedResponse<IEnumerable<CountryRes>, MetaData> 
+            SearchCountries(CountryReqSearch dto)
         {
             var pagedEntities = _repositoryManager.CountryRepository.
                 SearchCountries(dto, false);
             var dtos = _mapper.Map<IEnumerable<CountryRes>>(pagedEntities);
             return new ApiOkPagedResponse<IEnumerable<CountryRes>, MetaData>(dtos,
+                pagedEntities.MetaData);
+        }
+
+        public ApiOkPagedResponse<IEnumerable<CountryResWithStatesCount>, MetaData> 
+            SearchCountriesWithStatesCount(CountryReqSearch dto)
+        {
+            var pagedEntities = _repositoryManager.CountryRepository.
+                SearchCountriesWithStatesCount(dto, false);
+            var dtos = _mapper.Map<IEnumerable<CountryResWithStatesCount>>(pagedEntities);
+            return new ApiOkPagedResponse<IEnumerable<CountryResWithStatesCount>, MetaData>(dtos,
                 pagedEntities.MetaData);
         }
 

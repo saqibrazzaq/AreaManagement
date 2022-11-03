@@ -6,6 +6,6 @@ namespace api.Repository
 {
     public interface IStateRepository : IRepositoryBase<State>
     {
-        PagedList<State> SearchStates(StateReqSearch dto, bool trackChanges);
+        PagedList<StateResWithCitiesCount> SearchStates(StateReqSearch dto, bool trackChanges);
     }
 }

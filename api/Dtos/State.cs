@@ -11,6 +11,11 @@ namespace api.Dtos
         public int CountryId { get; set; }
     }
 
+    public class StateResWithCitiesCount : StateRes
+    {
+        public int CitiesCount { get; set; }
+    }
+
     public class StateReqEdit
     {
         [Required, MaxLength(255)]

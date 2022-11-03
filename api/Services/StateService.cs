@@ -64,12 +64,12 @@ namespace api.Services
             return _mapper.Map<StateRes>(entity);
         }
 
-        public ApiOkPagedResponse<IEnumerable<StateRes>, MetaData> SearchStates(StateReqSearch dto)
+        public ApiOkPagedResponse<IEnumerable<StateResWithCitiesCount>, MetaData> SearchStates(StateReqSearch dto)
         {
             var pagedEntities = _repositoryManager.StateRepository.
                 SearchStates(dto, false);
-            var dtos = _mapper.Map<IEnumerable<StateRes>>(pagedEntities);
-            return new ApiOkPagedResponse<IEnumerable<StateRes>, MetaData>(dtos,
+            var dtos = _mapper.Map<IEnumerable<StateResWithCitiesCount>>(pagedEntities);
+            return new ApiOkPagedResponse<IEnumerable<StateResWithCitiesCount>, MetaData>(dtos,
                 pagedEntities.MetaData);
         }
 

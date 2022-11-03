@@ -8,6 +8,10 @@ export interface StateRes {
   countryId?: number;
 }
 
+export interface StateResWithCitiesCount extends StateRes {
+  citiesCount?: number;
+}
+
 export class StateReqEdit {
   name?: string = "";
   code?: string = "";

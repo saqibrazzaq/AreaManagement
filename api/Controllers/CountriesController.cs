@@ -32,10 +32,24 @@ namespace api.Controllers
             return Ok(res);
         }
 
+        [HttpGet("searchWithStatesCount")]
+        public IActionResult SearchWithStatesCount([FromQuery] CountryReqSearch dto)
+        {
+            var res = _countryService.SearchCountriesWithStatesCount(dto);
+            return Ok(res);
+        }
+
         [HttpGet("{countryId}")]
         public IActionResult FindById(int countryId)
         {
-            var res = _countryService.FindById(countryId);
+            var res = _countryService.Get(countryId);
+            return Ok(res);
+        }
+
+        [HttpGet("GetCountryWithStatesCount/{countryId}")]
+        public IActionResult GetCountryWithStatesCount(int countryId)
+        {
+            var res = _countryService.GetCountryWithStatesCount(countryId);
             return Ok(res);
         }
 

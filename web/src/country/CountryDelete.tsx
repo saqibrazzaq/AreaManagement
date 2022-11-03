@@ -28,13 +28,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import { CountryApi } from "../api/countryApi";
-import { CountryRes } from "../dtos/Country";
+import { CountryResWithStatesCount } from "../dtos/Country";
 
 const CountryDelete = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLAnchorElement>(null);
 
-  const [country, setCountry] = useState<CountryRes>();
+  const [country, setCountry] = useState<CountryResWithStatesCount>();
   
   const toast = useToast();
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const CountryDelete = () => {
             </Tr>
             <Tr>
               <Th>States</Th>
-              <Td>{"TODO"}</Td>
+              <Td>{country?.statesCount}</Td>
             </Tr>
           </Tbody>
         </Table>
@@ -113,7 +113,7 @@ const CountryDelete = () => {
 
   const loadCountry = () => {
     if (countryId) {
-      CountryApi.get(countryId).then(res => {
+      CountryApi.getCountryWithStatesCount(countryId).then(res => {
         setCountry(res);
         // console.log(res);
       })

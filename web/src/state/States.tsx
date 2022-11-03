@@ -29,7 +29,7 @@ import UpdateIconButton from "../components/UpdateIconButton";
 import DeleteIconButton from "../components/DeleteIconButton";
 import PagedRes from "../dtos/PagedResponse";
 import CountrySearchBox from "../searchboxes/CountrySearchBox";
-import { StateReqSearch, StateRes } from "../dtos/State";
+import { StateReqSearch, StateRes, StateResWithCitiesCount } from "../dtos/State";
 import { CountryRes } from "../dtos/Country";
 import { StateApi } from "../api/stateApi";
 import { CountryApi } from "../api/countryApi";
@@ -37,7 +37,7 @@ import { CountryApi } from "../api/countryApi";
 const States = () => {
   const params = useParams();
   const countryId = Number.parseInt(params.countryId || "0");
-  const [pagedRes, setPagedRes] = useState<PagedRes<StateRes>>();
+  const [pagedRes, setPagedRes] = useState<PagedRes<StateResWithCitiesCount>>();
   const [selectedCountry, setSelectedCountry] = useState<CountryRes>({});
   const [searchText, setSearchText] = useState<string>("");
   const navigate = useNavigate();
@@ -116,6 +116,7 @@ const States = () => {
           <Tr>
             <Th>Code</Th>
             <Th>Name</Th>
+            <Th>Cities</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -124,6 +125,7 @@ const States = () => {
             <Tr key={item.stateId}>
               <Td>{item.code}</Td>
               <Td>{item.name}</Td>
+              <Td>{item.citiesCount}</Td>
               <Td>
                 <Link
                   mr={2}
@@ -179,6 +181,7 @@ const States = () => {
           selectedCountry={selectedCountry}
           handleChange={(newValue?: CountryRes) => {
             navigate("/states/" + newValue?.countryId);
+            // console.log("/states/" + newValue?.countryId);
           }}
         />
       </Box>
