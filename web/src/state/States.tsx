@@ -59,7 +59,7 @@ const States = () => {
   };
 
   const searchStates = (searchParams: StateReqSearch) => {
-    StateApi.search(searchParams).then((res) => {
+    StateApi.searchStatesWithCitiesCount(searchParams).then((res) => {
       setPagedRes(res);
       // console.log(res);
     });
@@ -139,7 +139,10 @@ const States = () => {
                 >
                   <UpdateIconButton />
                 </Link>
-                <Link as={RouteLink} to={"/states/delete/" + item.stateId}>
+                <Link as={RouteLink} to={"/states/delete/"  +
+                    selectedCountry?.countryId +
+                    "/" +
+                    item.stateId}>
                   <DeleteIconButton />
                 </Link>
               </Td>

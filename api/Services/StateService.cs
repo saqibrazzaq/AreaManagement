@@ -64,10 +64,20 @@ namespace api.Services
             return _mapper.Map<StateRes>(entity);
         }
 
-        public ApiOkPagedResponse<IEnumerable<StateResWithCitiesCount>, MetaData> SearchStates(StateReqSearch dto)
+        public ApiOkPagedResponse<IEnumerable<StateRes>, MetaData> SearchStates(StateReqSearch dto)
         {
             var pagedEntities = _repositoryManager.StateRepository.
                 SearchStates(dto, false);
+            var dtos = _mapper.Map<IEnumerable<StateRes>>(pagedEntities);
+            return new ApiOkPagedResponse<IEnumerable<StateRes>, MetaData>(dtos,
+                pagedEntities.MetaData);
+        }
+
+        public ApiOkPagedResponse<IEnumerable<StateResWithCitiesCount>, MetaData> 
+            SearchStatesWithCitiesCount(StateReqSearch dto)
+        {
+            var pagedEntities = _repositoryManager.StateRepository.
+                SearchStatesWithCitiesCount(dto, false);
             var dtos = _mapper.Map<IEnumerable<StateResWithCitiesCount>>(pagedEntities);
             return new ApiOkPagedResponse<IEnumerable<StateResWithCitiesCount>, MetaData>(dtos,
                 pagedEntities.MetaData);
@@ -79,6 +89,13 @@ namespace api.Services
             _mapper.Map(dto, entity);
             _repositoryManager.Save();
             return _mapper.Map<StateRes>(entity);
+        }
+
+        public StateResWithCountryAndCitiesCount GetStateWithCountryAndCitiesCount(int stateId)
+        {
+            var entity = _repositoryManager.StateRepository.GetStateWithCountryAndCitiesCount(stateId);
+            if (entity == null) throw new NotFoundException("No state found with id " + stateId);
+            return entity;
         }
     }
 }

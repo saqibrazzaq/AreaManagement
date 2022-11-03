@@ -13,22 +13,62 @@ namespace api.Repository
             _appDbContext = context;
         }
 
-        public PagedList<StateResWithCitiesCount> SearchStates(StateReqSearch dto, bool trackChanges)
+        public StateResWithCountryAndCitiesCount GetStateWithCountryAndCitiesCount(int stateId)
         {
-            var entities = SearchStatesWithCitiesCount()
+            var query = (
+                from state in _appDbContext.Sates
+                join country in _appDbContext.Countries on state.CountryId equals country.CountryId
+                join city in _appDbContext.Cities on state.StateId equals city.StateId into grouping
+                from p in grouping.DefaultIfEmpty()
+                group p by new { state.StateId, state.Name, state.Code, state.CountryId, CountryName = country.Name } into g
+                select new StateResWithCountryAndCitiesCount()
+                {
+                    StateId = g.Key.StateId,
+                    Code = g.Key.Code,
+                    Name = g.Key.Name,
+                    CountryId = g.Key.CountryId,
+                    CountryName = g.Key.CountryName,
+                    CitiesCount = g.Count(x => x != null)
+                }
+                )
+                .Where(x => x.StateId == stateId)
+                .FirstOrDefault();
+            return query;
+        }
+
+        public PagedList<State> SearchStates(
+            StateReqSearch dto, bool trackChanges)
+        {
+            var entities = FindAll(trackChanges)
                 .Search(dto)
                 .Sort(dto.OrderBy)
                 .Skip((dto.PageNumber - 1) * dto.PageSize)
                 .Take(dto.PageSize)
                 .ToList();
-            var count = SearchStatesWithCitiesCount()
+            var count = FindAll(trackChanges)
                 .Search(dto)
+                .Count();
+            return new PagedList<State>(entities, count,
+                dto.PageNumber, dto.PageSize);
+        }
+
+        public PagedList<StateResWithCitiesCount> SearchStatesWithCitiesCount(
+            StateReqSearch dto, bool trackChanges)
+        {
+            var entities = GetQuery_SearchStatesWithCitiesCount()
+                .SearchStatesWithCitiesCount(dto)
+                .SortStatesWithCitiesCount(dto.OrderBy)
+                .Skip((dto.PageNumber - 1) * dto.PageSize)
+                .Take(dto.PageSize)
+                .ToList();
+            var count = GetQuery_SearchStatesWithCitiesCount()
+                .SearchStatesWithCitiesCount(dto)
                 .Count();
             return new PagedList<StateResWithCitiesCount>(entities, count,
                 dto.PageNumber, dto.PageSize);
         }
 
-        private IQueryable<StateResWithCitiesCount> SearchStatesWithCitiesCount()
+        private IQueryable<StateResWithCitiesCount> GetQuery_SearchStatesWithCitiesCount()
         {
             var query = (
                 from s in _appDbContext.Sates

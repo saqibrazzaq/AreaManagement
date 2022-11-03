@@ -23,6 +23,26 @@ export const StateApi = {
 
     return response.data
   },
+  searchStatesWithCitiesCount: async function (searchParams, cancel = false) {
+    // console.log(searchParams)
+    const response = await api.request({
+      url: "/states/searchStatesWithCitiesCount",
+      method: "GET",
+      params: searchParams,
+      signal: cancel ? cancelApiObject[this.searchStatesWithCitiesCount.name].handleRequestCancellation().signal : undefined,
+    })
+
+    return response.data
+  },
+  getStateWithCountryAndCitiesCount: async function (stateId, cancel = false) {
+    const response = await api.request({
+      url: "/states/GetStateWithCountryAndCitiesCount/" + stateId,
+      method: "GET",
+      signal: cancel ? cancelApiObject[this.getStateWithCountryAndCitiesCount.name].handleRequestCancellation().signal : undefined,
+    })
+
+    return response.data
+  },
   create: async function (state, cancel = false) {
     const response = await api.request({
       url: `/states`,

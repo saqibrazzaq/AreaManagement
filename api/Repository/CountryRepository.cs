@@ -31,20 +31,20 @@ namespace api.Repository
         }
         public PagedList<CountryResWithStatesCount> SearchCountriesWithStatesCount(CountryReqSearch dto, bool trackChanges)
         {
-            var entities = GetCustomQueryWithStatesCount()
+            var entities = GetQuery_SearchCountriesWithStatesCount()
                 .SearchWithStatesCount(dto)
                 .SortWithStatesCount(dto.OrderBy)
                 .Skip((dto.PageNumber - 1) * dto.PageSize)
                 .Take(dto.PageSize)
                 .ToList();
-            var count = GetCustomQueryWithStatesCount()
+            var count = GetQuery_SearchCountriesWithStatesCount()
                 .SearchWithStatesCount(dto)
                 .Count();
             return new PagedList<CountryResWithStatesCount>(entities, count,
                 dto.PageNumber, dto.PageSize);
         }
 
-        private IQueryable<CountryResWithStatesCount> GetCustomQueryWithStatesCount()
+        private IQueryable<CountryResWithStatesCount> GetQuery_SearchCountriesWithStatesCount()
         {
             var query = (
                 from c in _appDbContext.Countries
@@ -66,16 +66,19 @@ namespace api.Repository
         {
             var query = (
                 from c in _appDbContext.Countries
-                join s in _appDbContext.Sates on c.CountryId equals s.CountryId
-                group s by new { c.CountryId, c.Code, c.Name } into g
+                join s in _appDbContext.Sates on c.CountryId equals s.CountryId into grouping
+                from p in grouping.DefaultIfEmpty()
+                group p by new { c.CountryId, c.Code, c.Name } into g
                 select new CountryResWithStatesCount()
                 {
                     CountryId = g.Key.CountryId,
                     Code = g.Key.Code,
                     Name = g.Key.Name,
-                    StatesCount = g.Count()
+                    StatesCount = g.Count(x => x != null)
                 }
-                        ).FirstOrDefault();
+                        )
+                        .Where(x => x.CountryId == countryId)
+                        .FirstOrDefault();
 
             return query;
         }

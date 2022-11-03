@@ -12,6 +12,11 @@ export interface StateResWithCitiesCount extends StateRes {
   citiesCount?: number;
 }
 
+export interface StateResWithCountryAndCitiesCount extends StateRes {
+  citiesCount?: number;
+  countryName?: string;
+}
+
 export class StateReqEdit {
   name?: string = "";
   code?: string = "";

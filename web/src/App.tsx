@@ -36,7 +36,7 @@ export const App = () => (
           <Route path="edit" element={<StateEdit />} />
           <Route path="edit/:countryId" element={<StateEdit />} />
           <Route path="edit/:countryId/:stateId" element={<StateEdit />} />
-          <Route path="delete/:stateId" element={<StateDelete />} />
+          <Route path="delete/:countryId/:stateId" element={<StateDelete />} />
         </Route>
         <Route path="countries">
           <Route index element={<Countries />} />
