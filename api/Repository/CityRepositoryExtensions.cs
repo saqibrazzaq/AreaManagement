@@ -1,6 +1,7 @@
 ﻿using api.Dtos;
 using api.Entities;
 using api.Utility.Paging;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 
 namespace api.Repository
@@ -11,7 +12,7 @@ namespace api.Repository
             CityReqSearch searchParams)
         {
             var itemsToReturn = items
-                //.Include(x => x.Variants)
+                .Include(x => x.State.Country)
                 .AsQueryable();
 
             if (searchParams.StateId > 0)

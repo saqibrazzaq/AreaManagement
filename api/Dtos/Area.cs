@@ -11,6 +11,7 @@ namespace api.Dtos
 
         // Foreign keys
         public int CityId { get; set; }
+        public CityRes? City { get; set; }
     }
 
     public class AreaReqEdit

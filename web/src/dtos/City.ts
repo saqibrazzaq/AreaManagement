@@ -1,10 +1,13 @@
 import Common from "../utility/Common";
 import { PagedReq } from "./PagedReq";
+import { StateRes } from "./State";
 
 export interface CityRes {
   cityId?: number;
   name?: string;
   stateId?: number;
+
+  state?: StateRes;
 }
 
 export interface CityResWithAreasCount extends CityRes {

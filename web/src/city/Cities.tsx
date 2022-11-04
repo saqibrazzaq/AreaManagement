@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Center,
   Container,
   Flex,
   Heading,
@@ -173,7 +174,10 @@ const Cities = () => {
 
   const displaySearchBar = () => (
     <Flex>
-      <Box flex={1}>
+      <Center >
+        <Text>Select state:</Text>
+      </Center>
+      <Box flex={1} ml={4}>
         <StateSearchBox
           selectedState={selectedState}
           handleChange={(newValue?: StateRes) => {
