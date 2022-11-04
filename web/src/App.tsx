@@ -28,7 +28,8 @@ export const App = () => (
           <Route index element={<Cities />} />
           <Route path=":stateId" element={<Cities />} />
           <Route path="edit" element={<CityEdit />} />
-          <Route path="edit/:cityId" element={<CityEdit />} />
+          <Route path="edit/:stateId" element={<CityEdit />} />
+          <Route path="edit/:stateId/:cityId" element={<CityEdit />} />
           <Route path="delete/:cityId" element={<CityDelete />} />
         </Route>
         <Route path="states">

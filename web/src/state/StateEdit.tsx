@@ -65,11 +65,11 @@ const StateEdit = () => {
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required").max(255),
     code: Yup.string().required("Code is required").max(50),
+    countryId: Yup.number().required().min(1, "Please select country"),
   });
 
   const submitForm = (values: StateReqEdit) => {
     // console.log(values);
-    values.countryId = selectedCountry?.countryId;
     if (stateId) {
       updateState(values);
     } else {
@@ -122,6 +122,7 @@ const StateEdit = () => {
                   selectedCountry={selectedCountry}
                   handleChange={(newValue?: CountryRes) => {
                     setSelectedCountry(newValue);
+                    setFieldValue("countryId", newValue?.countryId);
                   }}
                 />
                 <FormErrorMessage>{errors.countryId}</FormErrorMessage>

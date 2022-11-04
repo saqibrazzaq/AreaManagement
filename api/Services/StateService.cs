@@ -4,6 +4,7 @@ using api.Exceptions;
 using api.Repository;
 using api.Utility.Paging;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services
 {
@@ -51,7 +52,8 @@ namespace api.Services
         {
             var entity = _repositoryManager.StateRepository.FindByCondition(
                 x => x.StateId == stateId,
-                trackChanges)
+                trackChanges,
+                include: i => i.Include(x => x.Country))
                 .FirstOrDefault();
             if (entity == null) throw new NotFoundException("No state found with id " + stateId);
 

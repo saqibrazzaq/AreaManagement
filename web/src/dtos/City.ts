@@ -18,9 +18,9 @@ export interface CityResDetails extends CityRes {
   countryName?: string;
 }
 
-export interface CityReqEdit {
-  name?: string;
-  stateId?: number;
+export class CityReqEdit {
+  name?: string = "";
+  stateId?: number = 0;
 }
 
 export class CityReqSearch extends PagedReq {

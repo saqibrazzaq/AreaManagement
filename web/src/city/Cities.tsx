@@ -122,26 +122,21 @@ const Cities = () => {
         </Thead>
         <Tbody>
           {pagedRes?.pagedList?.map((item) => (
-            <Tr key={item.stateId}>
+            <Tr key={item.cityId}>
               <Td>{item.name}</Td>
               <Td>{item.areasCount}</Td>
               <Td>
                 <Link
                   mr={2}
                   as={RouteLink}
-                  to={
-                    "/cities/edit/" +
-                    selectedState?.stateId +
-                    "/" +
-                    item.cityId
-                  }
+                  to={"/cities/edit/" + item.stateId + "/" + item.cityId}
                 >
                   <UpdateIconButton />
                 </Link>
-                <Link as={RouteLink} to={"/cities/delete/"  +
-                    selectedState?.stateId +
-                    "/" +
-                    item.cityId}>
+                <Link
+                  as={RouteLink}
+                  to={"/cities/delete/" + item.stateId + "/" + item.cityId}
+                >
                   <DeleteIconButton />
                 </Link>
               </Td>
@@ -232,6 +227,6 @@ const Cities = () => {
       </Stack>
     </Box>
   );
-}
+};
 
-export default Cities
+export default Cities;

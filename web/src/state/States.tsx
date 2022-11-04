@@ -29,7 +29,11 @@ import UpdateIconButton from "../components/UpdateIconButton";
 import DeleteIconButton from "../components/DeleteIconButton";
 import PagedRes from "../dtos/PagedResponse";
 import CountrySearchBox from "../searchboxes/CountrySearchBox";
-import { StateReqSearch, StateRes, StateResWithCitiesCount } from "../dtos/State";
+import {
+  StateReqSearch,
+  StateRes,
+  StateResWithCitiesCount,
+} from "../dtos/State";
 import { CountryRes } from "../dtos/Country";
 import { StateApi } from "../api/stateApi";
 import { CountryApi } from "../api/countryApi";
@@ -130,19 +134,14 @@ const States = () => {
                 <Link
                   mr={2}
                   as={RouteLink}
-                  to={
-                    "/states/edit/" +
-                    selectedCountry?.countryId +
-                    "/" +
-                    item.stateId
-                  }
+                  to={"/states/edit/" + item.countryId + "/" + item.stateId}
                 >
                   <UpdateIconButton />
                 </Link>
-                <Link as={RouteLink} to={"/states/delete/"  +
-                    selectedCountry?.countryId +
-                    "/" +
-                    item.stateId}>
+                <Link
+                  as={RouteLink}
+                  to={"/states/delete/" + item.countryId + "/" + item.stateId}
+                >
                   <DeleteIconButton />
                 </Link>
               </Td>

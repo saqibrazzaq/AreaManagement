@@ -1,4 +1,5 @@
-﻿using api.Utility.Paging;
+﻿using api.Entities;
+using api.Utility.Paging;
 using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos
@@ -9,6 +10,7 @@ namespace api.Dtos
         public string? Name { get; set; }
         public string? Code { get; set; }
         public int CountryId { get; set; }
+        public CountryRes? Country { get; set; }
     }
 
     public class StateResWithCitiesCount : StateRes
