@@ -12,9 +12,9 @@ export interface AreaRes {
 }
 
 export class AreaReqEdit {
-  name?: string;
-  code?: string;
-  cityId?: number;
+  name?: string = "";
+  code?: string = "";
+  cityId?: number = 0;
 
   constructor(cityId?: number) {
     this.cityId = cityId;

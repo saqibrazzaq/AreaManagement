@@ -4,6 +4,7 @@ using api.Exceptions;
 using api.Repository;
 using api.Utility.Paging;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services
 {
@@ -51,7 +52,8 @@ namespace api.Services
         {
             var entity = _repositoryManager.AreaRepository.FindByCondition(
                 x => x.AreaId == areaId,
-                trackChanges)
+                trackChanges,
+                include: i => i.Include(x => x.City.State.Country))
                 .FirstOrDefault();
             if (entity == null) throw new NotFoundException("No area found with id " + areaId);
 

@@ -129,7 +129,7 @@ const Areas = () => {
         </Thead>
         <Tbody>
           {pagedRes?.pagedList?.map((item) => (
-            <Tr key={item.cityId}>
+            <Tr key={item.areaId}>
               <Td>{item.name}</Td>
               <Td>{item.code}</Td>
               <Td>

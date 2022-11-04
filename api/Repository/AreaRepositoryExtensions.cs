@@ -14,8 +14,11 @@ namespace api.Repository
                 //.Include(x => x.Variants)
                 .AsQueryable();
 
-            itemsToReturn = itemsToReturn.Where(
-                x => x.CityId == searchParams.CityId);
+            if (searchParams.CityId > 0)
+            {
+                itemsToReturn = itemsToReturn.Where(
+                    x => x.CityId == searchParams.CityId);
+            }
 
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {

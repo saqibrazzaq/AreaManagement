@@ -20,9 +20,11 @@ export const App = () => (
         <Route index element={<Areas />} />
         <Route path="areas">
           <Route index element={<Areas />} />
+          <Route path=":cityId" element={<Areas />} />
           <Route path="edit" element={<AreaEdit />} />
-          <Route path="edit/:areaId" element={<AreaEdit />} />
-          <Route path="delete/:areaId" element={<AreaDelete />} />
+          <Route path="edit/:cityId" element={<AreaEdit />} />
+          <Route path="edit/:cityId/:areaId" element={<AreaEdit />} />
+          <Route path="delete/:cityId/:areaId" element={<AreaDelete />} />
         </Route>
         <Route path="cities">
           <Route index element={<Cities />} />
