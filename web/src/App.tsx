@@ -30,7 +30,7 @@ export const App = () => (
           <Route path="edit" element={<CityEdit />} />
           <Route path="edit/:stateId" element={<CityEdit />} />
           <Route path="edit/:stateId/:cityId" element={<CityEdit />} />
-          <Route path="delete/:cityId" element={<CityDelete />} />
+          <Route path="delete/:stateId/:cityId" element={<CityDelete />} />
         </Route>
         <Route path="states">
           <Route index element={<States />} />

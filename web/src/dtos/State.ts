@@ -23,6 +23,9 @@ export class StateReqEdit {
   name?: string = "";
   code?: string = "";
   countryId?: number = 0;
+  constructor(countryId?: number) {
+    this.countryId = countryId;
+  }
 }
 
 export class StateReqSearch extends PagedReq {

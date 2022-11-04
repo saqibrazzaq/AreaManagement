@@ -30,7 +30,7 @@ const CityEdit = () => {
   const stateId = Number.parseInt(params.stateId || "0");
   const cityId = Number.parseInt(params.cityId || "0");
   const updateText = cityId ? "Update City" : "Add City";
-  const [cityDto, setCityDto] = useState<CityReqEdit>(new CityReqEdit());
+  const [cityDto, setCityDto] = useState<CityReqEdit>(new CityReqEdit(stateId));
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -46,8 +46,8 @@ const CityEdit = () => {
     loadStateForDropdown(stateId);
   }, [stateId]);
 
-  const loadStateForDropdown = (cid?:number) => {
-    StateApi.get(cid).then((res) => {
+  const loadStateForDropdown = (id?:number) => {
+    StateApi.get(id).then((res) => {
       setSelectedState(res);
     });
   };

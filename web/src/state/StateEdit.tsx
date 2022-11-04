@@ -29,7 +29,7 @@ const StateEdit = () => {
   const countryId = Number.parseInt(params.countryId || "0");
   const stateId = Number.parseInt(params.stateId || "0");
   const updateText = stateId ? "Update State" : "Add State";
-  const [stateDto, setStateDto] = useState<StateReqEdit>(new StateReqEdit());
+  const [stateDto, setStateDto] = useState<StateReqEdit>(new StateReqEdit(countryId));
   const toast = useToast();
   const navigate = useNavigate();
 

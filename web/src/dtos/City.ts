@@ -21,6 +21,9 @@ export interface CityResDetails extends CityRes {
 export class CityReqEdit {
   name?: string = "";
   stateId?: number = 0;
+  constructor(stateId?: number) {
+    this.stateId = stateId;
+  }
 }
 
 export class CityReqSearch extends PagedReq {
