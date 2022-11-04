@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CountryApi } from "../api/countryApi";
 import { CountryReqSearch, CountryRes } from "../dtos/Country";
-import Select from "react-select";
+import {Select} from "chakra-react-select";
 
 const CountrySearchBox= ({handleChange, selectedCountry}) => {
   const [inputValue, setInputValue] = useState("");
