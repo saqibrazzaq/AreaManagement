@@ -9,6 +9,18 @@ namespace api.Dtos
         public string? Name { get; set; }
         public int StateId { get; set; }
     }
+    public class CityResWithAreasCount : CityRes
+    {
+        public int AreasCount { get; set; }
+    }
+
+    public class CityResDetails : CityRes
+    {
+        public int AreasCount { get; set; }
+        public string? StateName { get; set; }
+        public int CountryId { get; set; }
+        public string? CountryName { get; set; }
+    }
 
     public class CityReqEdit
     {

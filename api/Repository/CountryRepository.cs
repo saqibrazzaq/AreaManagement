@@ -48,7 +48,7 @@ namespace api.Repository
         {
             var query = (
                 from c in _appDbContext.Countries
-                join s in _appDbContext.Sates on c.CountryId equals s.CountryId into grouping
+                join s in _appDbContext.States on c.CountryId equals s.CountryId into grouping
                 from p in grouping.DefaultIfEmpty()
                 group p by new { c.CountryId, c.Code, c.Name } into g
                 select new CountryResWithStatesCount()
@@ -66,7 +66,7 @@ namespace api.Repository
         {
             var query = (
                 from c in _appDbContext.Countries
-                join s in _appDbContext.Sates on c.CountryId equals s.CountryId into grouping
+                join s in _appDbContext.States on c.CountryId equals s.CountryId into grouping
                 from p in grouping.DefaultIfEmpty()
                 group p by new { c.CountryId, c.Code, c.Name } into g
                 select new CountryResWithStatesCount()

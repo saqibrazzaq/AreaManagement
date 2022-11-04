@@ -80,5 +80,21 @@ namespace api.Services
             _repositoryManager.Save();
             return _mapper.Map<CityRes>(entity);
         }
+
+        public CityResDetails GetCityDetails(int cityId)
+        {
+            var entity = _repositoryManager.CityRepository.GetCityDetails(cityId);
+            if (entity == null) throw new NotFoundException("No city found with id " + cityId);
+            return entity;
+        }
+
+        public ApiOkPagedResponse<IEnumerable<CityResWithAreasCount>, MetaData> SearchCitiesWithAreaCount(CityReqSearch dto)
+        {
+            var pagedEntities = _repositoryManager.CityRepository.
+                SearchCitiesWithAreasCount(dto, false);
+            var dtos = _mapper.Map<IEnumerable<CityResWithAreasCount>>(pagedEntities);
+            return new ApiOkPagedResponse<IEnumerable<CityResWithAreasCount>, MetaData>(dtos,
+                pagedEntities.MetaData);
+        }
     }
 }

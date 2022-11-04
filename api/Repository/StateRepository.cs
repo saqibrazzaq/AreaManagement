@@ -16,7 +16,7 @@ namespace api.Repository
         public StateResWithCountryAndCitiesCount GetStateWithCountryAndCitiesCount(int stateId)
         {
             var query = (
-                from state in _appDbContext.Sates
+                from state in _appDbContext.States
                 join country in _appDbContext.Countries on state.CountryId equals country.CountryId
                 join city in _appDbContext.Cities on state.StateId equals city.StateId into grouping
                 from p in grouping.DefaultIfEmpty()
@@ -71,7 +71,7 @@ namespace api.Repository
         private IQueryable<StateResWithCitiesCount> GetQuery_SearchStatesWithCitiesCount()
         {
             var query = (
-                from s in _appDbContext.Sates
+                from s in _appDbContext.States
                 join c in _appDbContext.Cities on s.StateId equals c.StateId into grouping
                 from p in grouping.DefaultIfEmpty()
                 group p by new { s.StateId, s.Code, s.Name, s.CountryId } into g

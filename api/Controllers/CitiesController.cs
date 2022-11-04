@@ -24,10 +24,24 @@ namespace api.Controllers
             return Ok(res);
         }
 
+        [HttpGet("searchCitiesWithAreasCount")]
+        public IActionResult SearchCitiesWithAreasCount([FromQuery] CityReqSearch dto)
+        {
+            var res = _cityService.SearchCitiesWithAreaCount(dto);
+            return Ok(res);
+        }
+
         [HttpGet("{cityId}")]
         public IActionResult FindById(int cityId)
         {
             var res = _cityService.FindById(cityId);
+            return Ok(res);
+        }
+        
+        [HttpGet("GetCityDetails/{cityId}")]
+        public IActionResult GetCityDetails(int cityId)
+        {
+            var res = _cityService.GetCityDetails(cityId);
             return Ok(res);
         }
 

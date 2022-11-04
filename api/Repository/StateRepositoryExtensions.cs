@@ -14,8 +14,11 @@ namespace api.Repository
                 //.Include(x => x.Variants)
                 .AsQueryable();
 
-            itemsToReturn = itemsToReturn.Where(
-                x => x.CountryId == searchParams.CountryId);
+            if (searchParams.CountryId > 0)
+            {
+                itemsToReturn = itemsToReturn.Where(
+                    x => x.CountryId == searchParams.CountryId);
+            }
 
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {
@@ -50,8 +53,11 @@ namespace api.Repository
                 //.Include(x => x.Variants)
                 .AsQueryable();
 
-            itemsToReturn = itemsToReturn.Where(
-                x => x.CountryId == searchParams.CountryId);
+            if (searchParams.CountryId > 0)
+            {
+                itemsToReturn = itemsToReturn.Where(
+                    x => x.CountryId == searchParams.CountryId);
+            }
 
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {
