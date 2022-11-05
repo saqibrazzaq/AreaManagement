@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace api.Entities
 {
     [Table("State")]
-    [Index(nameof(Name), IsUnique = true)]
-    [Index(nameof(Code), IsUnique = true)]
+    [Index(nameof(Code), nameof(CountryId), IsUnique = true)]
     public class State
     {
         [Key]

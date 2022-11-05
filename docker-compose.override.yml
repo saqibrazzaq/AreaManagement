@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      VIRTUAL_HOST: xptrackercs-api.saqibrazzaq.com
+      LETSENCRYPT_HOST: xptrackercs-api.saqibrazzaq.com
+      LETSENCRYPT_EMAIL: "saqibrazzaq@gmail.com"
+    expose:
+      - 80
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+      - nginx-proxy
+      - area_db
+
+  db:
+    volumes:
+      - db_data:/var/opt/mssql/data
+    environment:
+      SA_PASSWORD: "Saqib123!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1437:1433"
+    networks:
+      - area_db
+
+volumes:
+  db_data:
+
+networks:
+  nginx-proxy:
+    external: true
+  area_db:
+    internal: true

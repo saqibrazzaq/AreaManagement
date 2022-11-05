@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace api.Entities
 {
     [Table("City")]
-    [Index(nameof(Name), IsUnique = true)]
     public class City
     {
         [Key]

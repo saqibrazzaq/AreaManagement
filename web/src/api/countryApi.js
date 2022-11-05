@@ -83,6 +83,15 @@ export const CountryApi = {
 
     return response.data
   },
+  reset: async function (cancel = false) {
+    const response = await api.request({
+      url: `/countries/reset`,
+      method: "POST",
+      signal: cancel ? cancelApiObject[this.reset.name].handleRequestCancellation().signal : undefined,
+    })
+
+    return response.data
+  },
 }
 
 // defining the cancel API object for ProductAPI

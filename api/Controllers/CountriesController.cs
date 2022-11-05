@@ -12,10 +12,12 @@ namespace api.Controllers
     public class CountriesController : ControllerBase
     {
         private readonly ICountryService _countryService;
-
-        public CountriesController(ICountryService countryService)
+        private readonly IDataResetService _resetService;
+        public CountriesController(ICountryService countryService, 
+            IDataResetService resetService)
         {
             _countryService = countryService;
+            _resetService = resetService;
         }
 
         [HttpGet]
@@ -53,6 +55,13 @@ namespace api.Controllers
             return Ok(res);
         }
 
+        [HttpGet("count")]
+        public IActionResult Count()
+        {
+            var res = _countryService.Count();
+            return Ok(res);
+        }
+
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult Create(CountryReqEdit dto)
@@ -73,6 +82,13 @@ namespace api.Controllers
         public IActionResult Delete(int countryId)
         {
             _countryService.Delete(countryId);
+            return NoContent();
+        }
+
+        [HttpPost("reset")]
+        public IActionResult Reset()
+        {
+            _resetService.ResetAllData();
             return NoContent();
         }
     }

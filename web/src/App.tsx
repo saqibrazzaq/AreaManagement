@@ -8,6 +8,7 @@ import CityEdit from "./city/CityEdit";
 import Countries from "./country/Countries";
 import CountryDelete from "./country/CountryDelete";
 import CountryEdit from "./country/CountryEdit";
+import CountryReset from "./country/CountryReset";
 import Layout from "./layout/Layout";
 import StateDelete from "./state/StateDelete";
 import StateEdit from "./state/StateEdit";
@@ -47,6 +48,7 @@ export const App = () => (
           <Route path="edit" element={<CountryEdit />} />
           <Route path="edit/:countryId" element={<CountryEdit />} />
           <Route path="delete/:countryId" element={<CountryDelete />} />
+          <Route path="reset" element={<CountryReset />} />
         </Route>
       </Route>
     </Routes>

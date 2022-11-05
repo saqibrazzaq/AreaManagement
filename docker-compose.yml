@@ -1,0 +1,41 @@
+version: '3.4'
+
+services:
+  api:
+    image: saqibrazzaq/area_api
+    container_name: area_api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    depends_on:
+      - db
+
+  web:
+    image: saqibrazzaq/area_web
+    container_name: area_web
+    environment:
+      VIRTUAL_HOST: area-web.saqibrazzaq.com
+      LETSENCRYPT_HOST: area-web.saqibrazzaq.com
+      LETSENCRYPT_EMAIL: "saqibrazzaq@gmail.com"
+      CHOKIDAR_USEPOLLING: true
+    build:
+      context: ./web
+      target: production
+    expose:
+      - 80
+    stdin_open: true
+    tty: true
+    depends_on:
+      - api
+    networks:
+      - nginx-proxy
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: area_db
+
+networks:
+  nginx-proxy:
+    external: true
+  area_db:
+    internal: true

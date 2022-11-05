@@ -73,6 +73,15 @@ export const CityApi = {
 
     return response.data
   },
+  count: async function (cancel = false) {
+    const response = await api.request({
+      url: "/cities/count",
+      method: "GET",
+      signal: cancel ? cancelApiObject[this.count.name].handleRequestCancellation().signal : undefined,
+    })
+
+    return response.data
+  },
 }
 
 // defining the cancel API object for ProductAPI

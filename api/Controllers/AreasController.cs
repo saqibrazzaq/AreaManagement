@@ -31,6 +31,13 @@ namespace api.Controllers
             return Ok(res);
         }
 
+        [HttpGet("count")]
+        public IActionResult Count()
+        {
+            var res = _areaService.Count();
+            return Ok(res);
+        }
+
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult Create(AreaReqEdit dto)

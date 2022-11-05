@@ -31,6 +31,13 @@ namespace api.Controllers
             return Ok(res);
         }
 
+        [HttpGet("count")]
+        public IActionResult Count()
+        {
+            var res = _stateService.Count();
+            return Ok(res);
+        }
+
         [HttpGet("{stateId}")]
         public IActionResult FindById(int stateId)
         {

@@ -69,6 +69,9 @@ const Countries = () => {
       </Box>
       <Spacer />
       <Box>
+        <Link ml={2} as={RouteLink} to={"/countries/reset"}>
+          <Button colorScheme={"blue"}>Reset Countries</Button>
+        </Link>
         <Link ml={2} as={RouteLink} to={"/countries/edit"}>
           <Button colorScheme={"blue"}>Add Country</Button>
         </Link>

@@ -37,6 +37,13 @@ namespace api.Controllers
             var res = _cityService.FindById(cityId);
             return Ok(res);
         }
+
+        [HttpGet("count")]
+        public IActionResult Count()
+        {
+            var res = _cityService.Count();
+            return Ok(res);
+        }
         
         [HttpGet("GetCityDetails/{cityId}")]
         public IActionResult GetCityDetails(int cityId)

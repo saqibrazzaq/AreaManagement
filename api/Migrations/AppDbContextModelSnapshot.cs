@@ -46,10 +46,7 @@ namespace api.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.HasIndex("Name")
+                    b.HasIndex("Code", "CityId")
                         .IsUnique();
 
                     b.ToTable("Area");
@@ -72,9 +69,6 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CityId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.HasIndex("StateId");
 
@@ -133,12 +127,9 @@ namespace api.Migrations
 
                     b.HasKey("StateId");
 
-                    b.HasIndex("Code")
-                        .IsUnique();
-
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("Name")
+                    b.HasIndex("Code", "CountryId")
                         .IsUnique();
 
                     b.ToTable("State");
