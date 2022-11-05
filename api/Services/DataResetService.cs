@@ -2,6 +2,7 @@
 using api.Entities;
 using api.Repository;
 using AutoMapper;
+using Bogus;
 using System.Text.Json;
 
 namespace api.Services
@@ -23,8 +24,31 @@ namespace api.Services
 
         public void ResetAllData()
         {
-            DeleteAllCountries();
-            ImportAllCountries();
+            //DeleteAllCountries();
+            //ImportAllCountries();
+            GenerateRandomAreas();
+        }
+
+        private void GenerateRandomAreas()
+        {
+            var cities = _repositoryManager.CityRepository.FindAll(true);
+            foreach(var city in cities)
+            {
+                city.Areas = new List<Area>();
+                city.Areas.Add(GenerateSingleRandomArea());
+                city.Areas.Add(GenerateSingleRandomArea());
+                city.Areas.Add(GenerateSingleRandomArea());
+            }
+            _repositoryManager.Save();
+        }
+
+        private Area GenerateSingleRandomArea()
+        {
+            var testAreaGen = new Faker<Area>()
+                .RuleFor(x => x.Name, x => x.Address.StreetName())
+                .RuleFor(x => x.Code, x => x.Name.FirstName());
+            var testArea = testAreaGen.Generate();
+            return testArea;
         }
 
         private void ImportAllCountries()

@@ -17,7 +17,7 @@ services:
       VIRTUAL_HOST: area-web.saqibrazzaq.com
       LETSENCRYPT_HOST: area-web.saqibrazzaq.com
       LETSENCRYPT_EMAIL: "saqibrazzaq@gmail.com"
-      CHOKIDAR_USEPOLLING: true
+      CHOKIDAR_USEPOLLING: "true"
     build:
       context: ./web
       target: production

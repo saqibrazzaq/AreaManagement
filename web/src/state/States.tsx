@@ -76,6 +76,7 @@ const States = () => {
       let searchParams = new StateReqSearch(
         {
           pageNumber: previousPageNumber,
+          searchText: searchText,
         },
         selectedCountry?.countryId
       );
@@ -88,7 +89,7 @@ const States = () => {
     if (pagedRes?.metaData) {
       let nextPageNumber = (pagedRes?.metaData?.currentPage || 0) + 1;
       let searchParams = new StateReqSearch(
-        { pageNumber: nextPageNumber },
+        { pageNumber: nextPageNumber, searchText: searchText },
         selectedCountry?.countryId
       );
 
@@ -130,7 +131,16 @@ const States = () => {
             <Tr key={item.stateId}>
               <Td>{item.code}</Td>
               <Td>{item.name}</Td>
-              <Td>{item.citiesCount}</Td>
+              <Td>
+                <Link
+                  color={"blue"}
+                  mr={2}
+                  as={RouteLink}
+                  to={"/cities/" + item.stateId}
+                >
+                  {item.citiesCount}
+                </Link>
+              </Td>
               <Td>
                 <Link
                   mr={2}
@@ -179,7 +189,7 @@ const States = () => {
 
   const displaySearchBar = () => (
     <Flex>
-      <Center >
+      <Center>
         <Text>Select country:</Text>
       </Center>
       <Box flex={1} ml={4}>

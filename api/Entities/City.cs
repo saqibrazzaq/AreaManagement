@@ -16,5 +16,8 @@ namespace api.Entities
         public int StateId { get; set; }
         [ForeignKey("StateId")]
         public State? State { get; set; }
+
+        // Chile tables
+        public ICollection<Area>? Areas { get; set; }
     }
 }

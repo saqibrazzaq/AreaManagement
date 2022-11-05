@@ -5,8 +5,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
-      VIRTUAL_HOST: xptrackercs-api.saqibrazzaq.com
-      LETSENCRYPT_HOST: xptrackercs-api.saqibrazzaq.com
+      VIRTUAL_HOST: area-api.saqibrazzaq.com
+      LETSENCRYPT_HOST: area-api.saqibrazzaq.com
       LETSENCRYPT_EMAIL: "saqibrazzaq@gmail.com"
     expose:
       - 80

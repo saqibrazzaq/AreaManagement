@@ -27,7 +27,8 @@ import DeleteIconButton from "../components/DeleteIconButton";
 import PagedRes from "../dtos/PagedResponse";
 
 const Countries = () => {
-  const [pagedRes, setPagedRes] = useState<PagedRes<CountryResWithStatesCount>>();
+  const [pagedRes, setPagedRes] =
+    useState<PagedRes<CountryResWithStatesCount>>();
   const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const Countries = () => {
       let previousPageNumber = (pagedRes?.metaData?.currentPage || 2) - 1;
       let searchParams = new CountryReqSearch({
         pageNumber: previousPageNumber,
+        searchText: searchText,
       });
 
       searchCountries(searchParams);
@@ -56,14 +58,17 @@ const Countries = () => {
   const nextPage = () => {
     if (pagedRes?.metaData) {
       let nextPageNumber = (pagedRes?.metaData?.currentPage || 0) + 1;
-      let searchParams = new CountryReqSearch({ pageNumber: nextPageNumber });
+      let searchParams = new CountryReqSearch({
+        pageNumber: nextPageNumber,
+        searchText: searchText,
+      });
 
       searchCountries(searchParams);
     }
   };
 
   const showHeading = () => (
-    <Flex >
+    <Flex>
       <Box>
         <Heading fontSize={"xl"}>Countries</Heading>
       </Box>
@@ -95,7 +100,11 @@ const Countries = () => {
             <Tr key={item.countryId}>
               <Td>{item.code}</Td>
               <Td>{item.name}</Td>
-              <Td>{item.statesCount}</Td>
+              <Td>
+                <Link color={"blue"} mr={2} as={RouteLink} to={"/states/" + item.countryId}>
+                  {item.statesCount}
+                </Link>
+              </Td>
               <Td>
                 <Link
                   mr={2}
@@ -141,9 +150,7 @@ const Countries = () => {
 
   const displaySearchBar = () => (
     <Flex>
-      <Box flex={1}>
-        
-      </Box>
+      <Box flex={1}></Box>
 
       <Box ml={4}>
         <Input
@@ -152,17 +159,20 @@ const Countries = () => {
           onChange={(e) => setSearchText(e.currentTarget.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              searchCountries(new CountryReqSearch({searchText: searchText}))
+              searchCountries(new CountryReqSearch({ searchText: searchText }));
             }
           }}
         />
       </Box>
       <Box ml={0}>
-        <Button colorScheme={"blue"}
+        <Button
+          colorScheme={"blue"}
           onClick={() => {
-            searchCountries(new CountryReqSearch({searchText: searchText}))
+            searchCountries(new CountryReqSearch({ searchText: searchText }));
           }}
-        >Search</Button>
+        >
+          Search
+        </Button>
       </Box>
     </Flex>
   );

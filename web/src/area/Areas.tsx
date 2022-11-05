@@ -78,7 +78,7 @@ const Areas = () => {
       let previousPageNumber = (pagedRes?.metaData?.currentPage || 2) - 1;
       let searchParams = new AreaReqSearch(
         {
-          pageNumber: previousPageNumber,
+          pageNumber: previousPageNumber, searchText: searchText
         },
         selectedCity?.cityId
       );
@@ -91,7 +91,7 @@ const Areas = () => {
     if (pagedRes?.metaData) {
       let nextPageNumber = (pagedRes?.metaData?.currentPage || 0) + 1;
       let searchParams = new AreaReqSearch(
-        { pageNumber: nextPageNumber },
+        { pageNumber: nextPageNumber, searchText: searchText },
         selectedCity?.cityId
       );
 

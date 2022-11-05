@@ -73,6 +73,7 @@ const Cities = () => {
       let searchParams = new CityReqSearch(
         {
           pageNumber: previousPageNumber,
+          searchText: searchText
         },
         selectedState?.stateId
       );
@@ -85,7 +86,7 @@ const Cities = () => {
     if (pagedRes?.metaData) {
       let nextPageNumber = (pagedRes?.metaData?.currentPage || 0) + 1;
       let searchParams = new CityReqSearch(
-        { pageNumber: nextPageNumber },
+        { pageNumber: nextPageNumber, searchText: searchText },
         selectedState?.stateId
       );
 
@@ -125,7 +126,16 @@ const Cities = () => {
           {pagedRes?.pagedList?.map((item) => (
             <Tr key={item.cityId}>
               <Td>{item.name}</Td>
-              <Td>{item.areasCount}</Td>
+              <Td>
+              <Link color={"blue"}
+                  mr={2}
+                  as={RouteLink}
+                  to={"/areas/" + item.cityId}
+                >
+                  {item.areasCount}
+                </Link>
+                
+                </Td>
               <Td>
                 <Link
                   mr={2}
